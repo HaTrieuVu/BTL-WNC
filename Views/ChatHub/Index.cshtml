@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Chat Page";
+}
+
+<head>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/assetschat/images/favicon.ico">
+
+    <!-- magnific-popup css -->
+    <link href="~/assetschat/libs/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
+
+    <!-- owl.carousel css -->
+    <link rel="stylesheet" href="~/assetschat/libs/owl.carousel/assets/owl.carousel.min.css">
+
+    <link rel="stylesheet" href="~/assetschat/libs/owl.carousel/assets/owl.theme.default.min.css">
+
+    <!-- Bootstrap Css -->
+    <link href="~/assetschat/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="~/assetschat/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="~/assetschat/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+</head>
+
+<body data-bs-theme="dark">
+    <div class="layout-wrapper d-lg-flex">
+
+        @await Html.PartialAsync("_LeftSidebarMenuPartial.cshtml")
+
+        @await Html.PartialAsync("_ChatLeftSidebar.cshtml")
+
+        @await Html.PartialAsync("_UserChat.cshtml")
+        
+    </div>
+        
+        <!-- JAVASCRIPT -->
+        <script src="~/assetschat/libs/jquery/jquery.min.js"></script>
+        <script src="~/assetschat/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="~/assetschat/libs/simplebar/simplebar.min.js"></script>
+        <script src="~/assetschat/libs/node-waves/waves.min.js"></script>
+
+        <!-- Magnific Popup-->
+		<script src="~/assetschat/libs/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+        <!-- owl.carousel js -->
+		<script src="~/assetschat/libs/owl.carousel/owl.carousel.min.js"></script>
+
+        <!-- page init -->
+		<script src="~/assetschat/js/pages/index.init.js"></script>
+
+        <script src="~/assetschat/js/app.js"></script>
+
+</body>
+
