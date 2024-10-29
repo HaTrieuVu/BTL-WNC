@@ -37,6 +37,13 @@ namespace BTL
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
+            services.AddControllersWithViews()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                    options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+                });
+
             services.AddSession();
 
             // Cấu hình xác thực (Cookie Authentication)

@@ -82,5 +82,79 @@ namespace BTL.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult SearchUsers(string searchQuery)
+        {
+            try
+            {
+                var currentUserId = HttpContext.Session.GetString("UserId");
+                if (string.IsNullOrEmpty(currentUserId))
+                {
+                    return Json(new { success = false, message = "User not logged in" });
+                }
+
+                int userId = Convert.ToInt32(currentUserId);
+
+                // Nếu input rỗng thì hiện tất cả cuộc trò chuyện
+                if (string.IsNullOrEmpty(searchQuery)) {
+                    var users = _context.Messages
+                    .Where(m => m.SenderId == userId || m.ReceiverId == userId)
+                    .AsEnumerable()
+                    .GroupBy(m => m.SenderId == userId ? m.ReceiverId : m.SenderId)
+                    .Select(g => new RecentChatModel
+                    {
+                        // Lấy người tham gia cuộc trò chuyện (người nhận hoặc người gửi)
+                        User = _context.Users.FirstOrDefault(u => u.UserId == g.Key),
+                        // Lấy tin nhắn cuối cùng của cuộc trò chuyện
+                        LastMessage = g.OrderByDescending(m => m.SentAt)
+                                        .Select(m => new Message
+                                        {
+                                            Content = m.Content,
+                                            SentAt = m.SentAt
+                                        })
+                                        .FirstOrDefault(),
+                        // Đếm số tin nhắn chưa đọc từ người dùng hiện tại
+                        UnreadCount = g.Count(m => m.ReceiverId == userId && !m.IsRead)
+                    })
+                    .ToList();
+
+                    return Json(new { success = true, data = users });
+                }
+                else
+                {
+                    var users = _context.Messages
+                    .Where(m => m.SenderId == userId || m.ReceiverId == userId)
+                    .AsEnumerable() // Đưa dữ liệu vào bộ nhớ
+                    .GroupBy(m => m.SenderId == userId ? m.ReceiverId : m.SenderId)
+                    .Select(g => new RecentChatModel
+                    {
+                        User = _context.Users.FirstOrDefault(u => u.UserId == g.Key && u.FullName.ToLower().Contains(searchQuery.ToLower())),
+                        LastMessage = g.OrderByDescending(m => m.SentAt)
+                                        .Select(m => new Message
+                                        {
+                                            Content = m.Content,
+                                            SentAt = m.SentAt
+                                        })
+                                        .FirstOrDefault(),
+                        UnreadCount = g.Count(m => m.ReceiverId == userId && !m.IsRead)
+                    })
+                    .Where(g => g.User != null) // Lọc những user hợp lệ
+                    .ToList();
+
+                    return Json(new { success = true, data = users });
+                } 
+            }
+            catch (Exception ex)
+            {
+                // Ghi log lỗi hoặc trả về lỗi chi tiết
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
+
+
+
+
     }
 }

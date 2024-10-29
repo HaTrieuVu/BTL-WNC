@@ -1402,3 +1402,4 @@ D:\ASP.NET Core\BTL\BTL\obj\Debug\net5.0\Razor\Views\ChatHub\_ChatLeftSidebar.cs
 D:\ASP.NET Core\BTL\BTL\obj\Debug\net5.0\Razor\Views\ChatHub\_LeftSidebarMenuPartial.cshtml.g.cs
 D:\ASP.NET Core\BTL\BTL\obj\Debug\net5.0\Razor\Views\ChatHub\_UserChat.cshtml.g.cs
 D:\ASP.NET Core\BTL\BTL\obj\Debug\net5.0\Razor\Views\Test\Index.cshtml.g.cs
+D:\ASP.NET Core\BTL\BTL\obj\Debug\net5.0\BTL.sourcelink.json
