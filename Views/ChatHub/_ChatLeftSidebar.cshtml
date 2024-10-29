@@ -252,7 +252,7 @@
                                     <span class="input-group-text text-muted bg-light pe-1 ps-3" id="basic-addon1">
                                         <i class="ri-search-line search-icon font-size-18"></i>
                                     </span>
-                                    <input type="text" class="form-control bg-light" style="padding: 1.5rem 1rem" placeholder="Search messages or users" aria-label="Search messages or users" aria-describedby="basic-addon1">
+                                    <input type="text" id="searchUser" name="searchUser" class="form-control bg-light" style="padding: 1.5rem 1rem" placeholder="Search messages or users" aria-label="Search messages or users" aria-describedby="basic-addon1">
                                 </div>
                             </div> <!-- Search Box-->
                         </div> <!-- .p-4 -->
@@ -338,12 +338,12 @@
                             <div class="chat-message-list px-2" data-simplebar>
                             @if (Model.RecentChats != null)
                             {
-                                <ul class="list-unstyled chat-list chat-user-list">
+                                <ul class="list-unstyled chat-list chat-user-list" id="userList">
                                     @foreach (var chat in Model.RecentChats)
                                     {
-                                       @if (chat.UnreadCount > 0)
-                                       {
-                                           <li class="unread">
+                                        @if (chat.UnreadCount > 0)
+                                        {
+                                            <li class="unread">
                                                 <a href="#">
                                                     <div class="d-flex">
                                                         <div class="chat-user-img away align-self-center me-3 ms-0">
@@ -377,7 +377,7 @@
                                                     </div>
                                                 </a>
                                             </li>
-                                       }
+                                        }
                                         else
                                         {
                                             <li>
@@ -397,15 +397,15 @@
                                                                 var timeDiff = DateTime.Now - chat.LastMessage.SentAt;
                                                                 if (timeDiff.TotalMinutes < 60)
                                                                 {
-                                                                    @($"{(int)timeDiff.TotalMinutes} min")
+                                                                        @($"{(int)timeDiff.TotalMinutes} min")
                                                                 }
                                                                 else if (timeDiff.TotalHours < 24)
                                                                 {
-                                                                    @($"{(int)timeDiff.TotalHours} hour")
+                                                                        @($"{(int)timeDiff.TotalHours} hour")
                                                                 }
                                                                 else
                                                                 {
-                                                                    @chat.LastMessage.SentAt.ToString("MM/dd/yyyy hh:mm tt")
+                                                                        @chat.LastMessage.SentAt.ToString("MM/dd/yyyy hh:mm tt")
                                                                 }
                                                             }
                                                         </div>
@@ -686,7 +686,7 @@
                                     <span class="input-group-text text-muted bg-light pe-1 ps-3" id="basic-addon1">
                                         <i class="ri-search-line search-icon font-size-18"></i>
                                     </span>
-                                    <input type="text" style="padding: 1.5rem 1rem" class="form-control bg-light" placeholder="Search groups..." aria-label="Search groups..." aria-describedby="basic-addon1">
+                                    <input type="text" onkeyup="searchGroup(this.value)" style="padding: 1.5rem 1rem" class="form-control bg-light" placeholder="Search groups..." aria-label="Search groups..." aria-describedby="basic-addon1">
                                 </div>
                             </div> <!-- Search Box-->
                         </div>
@@ -1479,3 +1479,6 @@
 
         </div>
         <!-- end chat-leftsidebar -->
+
+
+
