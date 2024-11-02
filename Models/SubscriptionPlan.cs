@@ -12,8 +12,8 @@ namespace BTL.Models
             CompanySubscriptions = new HashSet<CompanySubscription>();
         }
 
-        public int PlanId { get; set; }
-        public string PlanName { get; set; }
+        public int PlanId { get; set; }     //id gói dịch vụ
+        public string PlanName { get; set; }    //tên gói dịch vụ
         public int? MaxUsers { get; set; }
         public int? MaxStorage { get; set; }
         public decimal Price { get; set; }
