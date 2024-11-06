@@ -79,26 +79,24 @@ namespace BTL.Models
 
             modelBuilder.Entity<CompanySubscription>(entity =>
             {
-                entity.HasKey(e => e.CompanyId)
-                    .HasName("PK__CompanyS__2D971CACEF8E8F2B");
-
-                entity.Property(e => e.CompanyId).ValueGeneratedNever();
+                entity.HasKey(e => new { e.CompanyId, e.PlanId })
+                    .HasName("PK__CompanyS__4AC2DE877018D7B6");
 
                 entity.Property(e => e.EndDate).HasColumnType("date");
 
                 entity.Property(e => e.StartDate).HasColumnType("date");
 
                 entity.HasOne(d => d.Company)
-                    .WithOne(p => p.CompanySubscription)
-                    .HasForeignKey<CompanySubscription>(d => d.CompanyId)
+                    .WithMany(p => p.CompanySubscriptions)
+                    .HasForeignKey(d => d.CompanyId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CompanySu__Compa__6FE99F9F");
+                    .HasConstraintName("FK__CompanySu__Compa__3C34F16F");
 
                 entity.HasOne(d => d.Plan)
                     .WithMany(p => p.CompanySubscriptions)
                     .HasForeignKey(d => d.PlanId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CompanySu__PlanI__70DDC3D8");
+                    .HasConstraintName("FK__CompanySu__PlanI__3D2915A8");
             });
 
             modelBuilder.Entity<File>(entity =>

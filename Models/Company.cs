@@ -9,6 +9,7 @@ namespace BTL.Models
     {
         public Company()
         {
+            CompanySubscriptions = new HashSet<CompanySubscription>();
             Invoices = new HashSet<Invoice>();
             Projects = new HashSet<Project>();
             Users = new HashSet<User>();
@@ -20,7 +21,7 @@ namespace BTL.Models
         public DateTime CreatedAt { get; set; }
 
         public virtual CompanySetting CompanySetting { get; set; }
-        public virtual CompanySubscription CompanySubscription { get; set; }
+        public virtual ICollection<CompanySubscription> CompanySubscriptions { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
         public virtual ICollection<User> Users { get; set; }

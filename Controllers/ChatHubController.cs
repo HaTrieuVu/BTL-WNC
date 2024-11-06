@@ -82,6 +82,7 @@ namespace BTL.Controllers
             }
         }
 
+        //tìm user: những user đã chat cùng
         [HttpGet]
         public IActionResult SearchUsers(string searchQuery)
         {
@@ -151,7 +152,72 @@ namespace BTL.Controllers
             }
         }
 
+        public IActionResult SearchGroups(string searchQueryGroup)
+        {
+            try
+            {
+                var currentUserId = Convert.ToInt32(HttpContext.Session.GetString("UserId"));
 
+                var groupsQuery = _context.Groups
+                            .Where(g => _context.GroupMembers.Any(gm => gm.GroupId == g.GroupId && gm.UserId == currentUserId));
+
+                //k rong
+                if (!string.IsNullOrEmpty(searchQueryGroup))
+                {
+                    groupsQuery = groupsQuery
+                        .Where(g => g.GroupName.ToLower().Contains(searchQueryGroup.ToLower()));
+                }
+
+                var groups = groupsQuery
+                    .Select(g => new
+                    {
+                        g.GroupId,
+                        g.GroupName
+                    })
+                    .ToList();
+
+                return Json(new { success = true, groups });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        //searchuser: tìm tất cả user 
+        public IActionResult SearchAllUsers(string searchAllUser)
+        {
+            try
+            {
+                if(string.IsNullOrEmpty(searchAllUser))
+                {
+                    return Json(new { success = false, data = "" });
+                }    
+
+                // Lấy tất cả người dùng từ database
+                var users = _context.Users
+                    .Where(u => u.FullName.ToLower().Contains(searchAllUser.ToLower()))
+                    .OrderBy(u => u.FullName)
+                    .Select(u => new
+                    {
+                        u.UserId,
+                        u.FullName,
+                        FirstLetter = u.FullName.Substring(0, 1).ToUpper() // Lấy ký tự đầu tiên để nhóm theo ký tự
+                    })
+                    .ToList();
+
+                // Nhóm người dùng theo chữ cái đầu tiên của tên
+                var groupedUsers = users
+                    .GroupBy(u => u.FirstLetter)
+                    .ToDictionary(g => g.Key, g => g.ToList());
+
+                return Json(new { success = true, data = groupedUsers });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
 
 

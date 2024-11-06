@@ -14,68 +14,6 @@
                 
             </li>
             
-            <!-- Quản lý đơn hàng -->
-            <li class="nav-item dropdown">
-                <a class="dropdown-toggle" href="javascript:void(0);">
-                    <span class="icon-holder">
-                        <i class="anticon anticon-appstore"></i>
-                    </span>
-                    <span class="title">Quản lý Đơn hàng</span>
-                    <span class="arrow">
-                        <i class="arrow-icon"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="app-chat.html">Chat</a>
-                    </li>
-                    <li>
-                        <a href="app-file-manager.html">File Manager</a>
-                    </li>
-                    <li>
-                        <a href="app-mail.html">Mail</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="javascript:void(0);">
-                            <span>Projects</span>
-                            <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="app-project-list.html">Project List</a>
-                            </li>
-                            <li>
-                                <a href="app-project-details.html">Project Details</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="javascript:void(0);">
-                            <span>E-commerce</span>
-                            <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="app-e-commerce-order-list.html">Orders List</a>
-                            </li>
-                            <li>
-                                <a href="app-e-commerce-products.html">Products</a>
-                            </li>
-                            <li>
-                                <a href="app-e-commerce-products-list.html">Products List</a>
-                            </li>
-                            <li>
-                                <a href="app-e-commerce-products-edit.html">Products Edit</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            
             <!-- Quản lý sản phẩm -->
             <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">
@@ -89,7 +27,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index">Danh sách sản phẩm</a>
+                        <a asp-area="Admin" asp-controller="AdminSubscriptionPlan" asp-action="Index">Quản lý dịch vụ</a>
                     </li>     
                 </ul>
             </li>
@@ -100,17 +38,14 @@
                     <span class="icon-holder">
                         <i class="anticon anticon-hdd"></i>
                     </span>
-                    <span class="title">Quản lý khách hàng</span>
+                    <span class="title">Quản lý công ty</span>
                     <span class="arrow">
                         <i class="arrow-icon"></i>
                     </span>
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a asp-area="Admin" asp-controller="AdminCustomer" asp-action="Index">Dánh sách khách hàng</a>
-                    </li>
-                    <li>
-                        <a href="carousel.html">Tìm khiếm khách hàng</a>
+                        <a asp-area="Admin" asp-controller="AdminCompany" asp-action="Index">Danh sách công ty</a>
                     </li>                   
                 </ul>
             </li>
@@ -166,102 +101,7 @@
                 </ul>
             </li>
             
-            <!-- Quản lý tin tức -->
-            <li class="nav-item dropdown">
-                <a class="dropdown-toggle" href="javascript:void(0);">
-                    <span class="icon-holder">
-                        <i class="anticon anticon-pie-chart"></i>
-                    </span>
-                    <span class="title">Quản lý tin tức</span>
-                    <span class="arrow">
-                        <i class="arrow-icon"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="chartist.html">Chartist</a>
-                    </li>
-                    <li>
-                        <a href="chartjs.html">ChartJs</a>
-                    </li>
-                </ul>
-            </li>
             
-            <!-- Quản lý Pages -->
-            <li class="nav-item dropdown">
-                <a class="dropdown-toggle" href="javascript:void(0);">
-                    <span class="icon-holder">
-                        <i class="anticon anticon-file"></i>
-                    </span>
-                    <span class="title">Quản lý Pages</span>
-                    <span class="arrow">
-                        <i class="arrow-icon"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a asp-area="Admin" asp-controller="AdminPages" asp-action="Index" >Pages</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a href="javascript:void(0);">
-                            <span>Blog</span>
-                            <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="blog-grid.html">Blog Grid</a>
-                            </li>
-                            <li>
-                                <a href="blog-list.html">Blog List</a>
-                            </li>
-                            <li>
-                                <a href="blog-post.html">Blog Post</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-
-            <!-- Quản lý Shipper -->
-            <li class="nav-item dropdown">
-                <a class="dropdown-toggle" href="javascript:void(0);">
-                    <span class="icon-holder">
-                        <i class="anticon anticon-lock"></i>
-                    </span>
-                    <span class="title">Quản lý Shipper</span>
-                    <span class="arrow">
-                        <i class="arrow-icon"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="login-1.html">Login 1</a>
-                    </li>
-                    <li>
-                        <a href="login-2.html">Login 2</a>
-                    </li>
-                    <li>
-                        <a href="login-3.html">Login 3</a>
-                    </li>
-                    <li>
-                        <a href="sign-up-1.html">Sign Up 1</a>
-                    </li>
-                    <li>
-                        <a href="sign-up-2.html">Sign Up 2</a>
-                    </li>
-                    <li>
-                        <a href="sign-up-3.html">Sign Up 3</a>
-                    </li>
-                    <li>
-                        <a href="error-1.html">Error 1</a>
-                    </li>
-                    <li>
-                        <a href="error-2.html">Error 2</a>
-                    </li>
-                </ul>
-            </li>
         </ul>
     </div>
 </div>
