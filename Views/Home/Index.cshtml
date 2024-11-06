@@ -29,15 +29,16 @@
 				<button type="submit"><i class="zmdi zmdi-search"></i></button>
 			</form>
 			<span>or write in</span>
-			@if (User.Identity.IsAuthenticated == true)
+			@if (User.Identity.IsAuthenticated)
 			{
-				<a href="chat.html" class="default-button">Live Chat</a>
+				<a href="@Url.Action("AccessServiceFeature", "Subscription", new { serviceName = "LiveChat", returnUrl = Url.Action("Index", "ChatHub") })"
+				   class="default-button"> Live Chat
+				</a>
 			}
 			else
 			{
 				<a href="dang-nhap.html" class="default-button">Live Chat</a>
 			}
-			
 		</div>
 	</div>
 </section>

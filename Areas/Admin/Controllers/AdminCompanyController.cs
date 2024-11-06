@@ -25,7 +25,7 @@ namespace BTL.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Companies
-                .Include(c => c.CompanySubscription)
+                .Include(c => c.CompanySubscriptions)
                 .ThenInclude(cs => cs.Plan) // Lấy cả thông tin Subscription Plan cho mỗi công ty
                 .ToListAsync()
 
