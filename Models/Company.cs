@@ -32,7 +32,9 @@ namespace BTL.Models
         public virtual CompanySetting CompanySetting { get; set; }
         [InverseProperty("Company")]
         public virtual CompanySubscription CompanySubscription { get; set; }
-        [InverseProperty(nameof(Invoice.Company))]
+		public virtual ICollection<CompanySubscription> CompanySubscriptions { get; set; }
+
+		[InverseProperty(nameof(Invoice.Company))]
         public virtual ICollection<Invoice> Invoices { get; set; }
         [InverseProperty(nameof(Project.Company))]
         public virtual ICollection<Project> Projects { get; set; }

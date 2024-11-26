@@ -3,8 +3,20 @@
   "WorkspaceRootPath": "D:\\My study\\LTWNC\\BTL-WNC\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BF8AA9F4-57AE-4EE8-8050-09CA34F984CC}|BTL.csproj|d:\\my study\\ltwnc\\btl-wnc\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{BF8AA9F4-57AE-4EE8-8050-09CA34F984CC}|BTL.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{BF8AA9F4-57AE-4EE8-8050-09CA34F984CC}|BTL.csproj|d:\\my study\\ltwnc\\btl-wnc\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF8AA9F4-57AE-4EE8-8050-09CA34F984CC}|BTL.csproj|solutionrelative:controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF8AA9F4-57AE-4EE8-8050-09CA34F984CC}|BTL.csproj|d:\\my study\\ltwnc\\btl-wnc\\views\\event\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BF8AA9F4-57AE-4EE8-8050-09CA34F984CC}|BTL.csproj|solutionrelative:views\\event\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF8AA9F4-57AE-4EE8-8050-09CA34F984CC}|BTL.csproj|d:\\my study\\ltwnc\\btl-wnc\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{BF8AA9F4-57AE-4EE8-8050-09CA34F984CC}|BTL.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BF8AA9F4-57AE-4EE8-8050-09CA34F984CC}|BTL.csproj|d:\\my study\\ltwnc\\btl-wnc\\controllers\\dropdowncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BF8AA9F4-57AE-4EE8-8050-09CA34F984CC}|BTL.csproj|solutionrelative:controllers\\dropdowncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -13,39 +25,60 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedHeight": 312,
+          "DockedHeight": 1100,
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\My study\\LTWNC\\BTL-WNC\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "D:\\My study\\LTWNC\\BTL-WNC\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-11-26T16:56:47.841Z",
+              "Title": "EventController.cs",
+              "DocumentMoniker": "D:\\My study\\LTWNC\\BTL-WNC\\Controllers\\EventController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EventController.cs",
+              "ToolTip": "D:\\My study\\LTWNC\\BTL-WNC\\Controllers\\EventController.cs",
+              "RelativeToolTip": "Controllers\\EventController.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAxwBcAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-26T18:11:41.403Z",
               "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedHeight": 667,
-          "SelectedChildIndex": -1,
-          "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\My study\\LTWNC\\BTL-WNC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\My study\\LTWNC\\BTL-WNC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAADkAAAAAAAAAAAAAAE0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-26T18:10:08.818Z",
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DropdownController.cs",
+              "DocumentMoniker": "D:\\My study\\LTWNC\\BTL-WNC\\Controllers\\DropdownController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DropdownController.cs",
+              "ToolTip": "D:\\My study\\LTWNC\\BTL-WNC\\Controllers\\DropdownController.cs",
+              "RelativeToolTip": "Controllers\\DropdownController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-26T18:04:20.604Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\My study\\LTWNC\\BTL-WNC\\Views\\Event\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Event\\Index.cshtml",
+              "ToolTip": "D:\\My study\\LTWNC\\BTL-WNC\\Views\\Event\\Index.cshtml",
+              "RelativeToolTip": "Views\\Event\\Index.cshtml",
+              "ViewState": "AQIAAIgAAAAAAAAAAAAAAJsAAAA+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-11-26T18:03:28.643Z",
+              "EditorCaption": ""
             }
           ]
         }

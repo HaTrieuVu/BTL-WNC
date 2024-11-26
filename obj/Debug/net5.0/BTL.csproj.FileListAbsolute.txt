@@ -1890,3 +1890,4 @@ D:\My study\LTWNC\BTL-WNC\obj\Debug\net5.0\refint\BTL.dll
 D:\My study\LTWNC\BTL-WNC\obj\Debug\net5.0\BTL.pdb
 D:\My study\LTWNC\BTL-WNC\obj\Debug\net5.0\BTL.genruntimeconfig.cache
 D:\My study\LTWNC\BTL-WNC\obj\Debug\net5.0\ref\BTL.dll
+D:\My study\LTWNC\BTL-WNC\obj\Debug\net5.0\Razor\Views\Event\Index.cshtml.g.cs
