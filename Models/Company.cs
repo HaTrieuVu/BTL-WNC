@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
@@ -14,15 +17,28 @@ namespace BTL.Models
             Users = new HashSet<User>();
         }
 
+        [Key]
         public int CompanyId { get; set; }
+        [Required]
+        [StringLength(100)]
         public string CompanyName { get; set; }
+        [Required]
+        [StringLength(100)]
         public string Domain { get; set; }
+        [Column(TypeName = "datetime")]
         public DateTime CreatedAt { get; set; }
 
+        [InverseProperty("Company")]
         public virtual CompanySetting CompanySetting { get; set; }
+        [InverseProperty("Company")]
         public virtual CompanySubscription CompanySubscription { get; set; }
+		public virtual ICollection<CompanySubscription> CompanySubscriptions { get; set; }
+
+		[InverseProperty(nameof(Invoice.Company))]
         public virtual ICollection<Invoice> Invoices { get; set; }
+        [InverseProperty(nameof(Project.Company))]
         public virtual ICollection<Project> Projects { get; set; }
+        [InverseProperty(nameof(User.Company))]
         public virtual ICollection<User> Users { get; set; }
     }
 }

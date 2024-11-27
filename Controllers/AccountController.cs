@@ -122,8 +122,11 @@ namespace BTL.Controllers
                         //Indentity
                         var claims = new List<Claim>
                         {
+
                             new Claim(ClaimTypes.Name, user.FullName),
-                            new Claim("UserId", user.UserId.ToString())
+                            new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
+                            new Claim(ClaimTypes.Role, user.Role.RoleName),  // Lưu Role vào Claim
+                            new Claim("CompanyId", user.CompanyId.ToString()) // Thêm CompanyId vào Claims
                         };
 
                         ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "login");
@@ -208,7 +211,8 @@ namespace BTL.Controllers
                     {
                         new Claim(ClaimTypes.Name, khachhang.FullName),
                         new Claim(ClaimTypes.NameIdentifier, khachhang.UserId.ToString()),
-                        new Claim(ClaimTypes.Role, khachhang.Role.RoleName)  // Lưu Role vào Claim
+                        new Claim(ClaimTypes.Role, khachhang.Role.RoleName),  // Lưu Role vào Claim
+                        new Claim("CompanyId", khachhang.CompanyId.ToString()) // Thêm CompanyId vào Claims
                     };
 
                     ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "login");

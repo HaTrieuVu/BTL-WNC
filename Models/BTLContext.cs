@@ -20,12 +20,15 @@ namespace BTL.Models
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<CompanySetting> CompanySettings { get; set; }
         public virtual DbSet<CompanySubscription> CompanySubscriptions { get; set; }
+        public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<File> Files { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<GroupInCompany> GroupInCompanies { get; set; }
         public virtual DbSet<GroupMember> GroupMembers { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<Participant> Participants { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
@@ -38,7 +41,7 @@ namespace BTL.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=ADMIN\\SQLEXPRESS; Initial Catalog=BTL; User ID=sa;Password=3456789");
+                optionsBuilder.UseSqlServer("Data Source=QUYNHANH\\SQLEXPRESS; Initial Catalog=BTL; User ID=sa;Password=anh");
             }
         }
 
@@ -46,342 +49,265 @@ namespace BTL.Models
         {
             modelBuilder.Entity<Company>(entity =>
             {
-                entity.Property(e => e.CompanyName)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.CreatedAt)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Domain)
-                    .IsRequired()
-                    .HasMaxLength(100);
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
             });
 
             modelBuilder.Entity<CompanySetting>(entity =>
             {
                 entity.HasKey(e => e.CompanyId)
-                    .HasName("PK__CompanyS__2D971CAC157417ED");
+                    .HasName("PK__CompanyS__2D971CAC674DEA60");
 
                 entity.Property(e => e.CompanyId).ValueGeneratedNever();
-
-                entity.Property(e => e.Logo).HasMaxLength(255);
-
-                entity.Property(e => e.Theme).HasMaxLength(50);
 
                 entity.HasOne(d => d.Company)
                     .WithOne(p => p.CompanySetting)
                     .HasForeignKey<CompanySetting>(d => d.CompanyId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CompanySe__Compa__6B24EA82");
+                    .HasConstraintName("FK__CompanySe__Compa__45F365D3");
             });
 
             modelBuilder.Entity<CompanySubscription>(entity =>
             {
                 entity.HasKey(e => e.CompanyId)
-                    .HasName("PK__CompanyS__2D971CACEF8E8F2B");
+                    .HasName("PK__CompanyS__2D971CAC660B3CD2");
 
                 entity.Property(e => e.CompanyId).ValueGeneratedNever();
-
-                entity.Property(e => e.EndDate).HasColumnType("date");
-
-                entity.Property(e => e.StartDate).HasColumnType("date");
 
                 entity.HasOne(d => d.Company)
                     .WithOne(p => p.CompanySubscription)
                     .HasForeignKey<CompanySubscription>(d => d.CompanyId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CompanySu__Compa__6FE99F9F");
+                    .HasConstraintName("FK__CompanySu__Compa__4AB81AF0");
 
                 entity.HasOne(d => d.Plan)
                     .WithMany(p => p.CompanySubscriptions)
                     .HasForeignKey(d => d.PlanId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__CompanySu__PlanI__70DDC3D8");
+                    .HasConstraintName("FK__CompanySu__PlanI__4BAC3F29");
+            });
+
+            modelBuilder.Entity<Event>(entity =>
+            {
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.Events)
+                    .HasForeignKey(d => d.GroupId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK__Events__GroupId__44CA3770");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Events)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Events__UserId__43D61337");
             });
 
             modelBuilder.Entity<File>(entity =>
             {
-                entity.Property(e => e.FileName)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.FileType).IsUnicode(false);
 
-                entity.Property(e => e.FilePath)
-                    .IsRequired()
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.FileType)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.UploadedAt)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.UploadedAt).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Message)
                     .WithMany(p => p.Files)
                     .HasForeignKey(d => d.MessageId)
-                    .HasConstraintName("FK__Files__MessageId__160F4887");
+                    .HasConstraintName("FK__Files__MessageId__17F790F9");
 
                 entity.HasOne(d => d.Project)
                     .WithMany(p => p.Files)
                     .HasForeignKey(d => d.ProjectId)
-                    .HasConstraintName("FK__Files__ProjectId__151B244E");
+                    .HasConstraintName("FK__Files__ProjectId__17036CC0");
 
                 entity.HasOne(d => d.UploadedByNavigation)
                     .WithMany(p => p.Files)
                     .HasForeignKey(d => d.UploadedBy)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Files__UploadedB__1332DBDC");
+                    .HasConstraintName("FK__Files__UploadedB__151B244E");
             });
 
             modelBuilder.Entity<Group>(entity =>
             {
-                entity.Property(e => e.CreatedAt)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.GroupName)
-                    .IsRequired()
-                    .HasMaxLength(100);
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.CreatedByNavigation)
                     .WithMany(p => p.Groups)
                     .HasForeignKey(d => d.CreatedBy)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Groups__CreatedB__0A9D95DB");
+                    .HasConstraintName("FK__Groups__CreatedB__0C85DE4D");
+            });
+
+            modelBuilder.Entity<GroupInCompany>(entity =>
+            {
+                entity.HasKey(e => e.GroupId)
+                    .HasName("PK__GroupInC__149AF36A886E463B");
+
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Manager)
+                    .WithMany(p => p.GroupInCompanies)
+                    .HasForeignKey(d => d.ManagerId)
+                    .HasConstraintName("FK__GroupInCo__Manag__40F9A68C");
             });
 
             modelBuilder.Entity<GroupMember>(entity =>
             {
                 entity.HasKey(e => new { e.GroupId, e.UserId })
-                    .HasName("PK__GroupMem__C5E27FAE17E8D2DB");
+                    .HasName("PK__GroupMem__C5E27FAE4B4736D3");
 
-                entity.Property(e => e.JoinedAt)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.JoinedAt).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Group)
                     .WithMany(p => p.GroupMembers)
                     .HasForeignKey(d => d.GroupId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupMemb__Group__0E6E26BF");
+                    .HasConstraintName("FK__GroupMemb__Group__10566F31");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.GroupMembers)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__GroupMemb__UserI__0F624AF8");
+                    .HasConstraintName("FK__GroupMemb__UserI__114A936A");
             });
 
             modelBuilder.Entity<Invoice>(entity =>
             {
-                entity.Property(e => e.Amount).HasColumnType("decimal(10, 2)");
-
-                entity.Property(e => e.PaymentDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Status).HasMaxLength(50);
+                entity.Property(e => e.PaymentDate).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Company)
                     .WithMany(p => p.Invoices)
                     .HasForeignKey(d => d.CompanyId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Invoices__Compan__73BA3083");
+                    .HasConstraintName("FK__Invoices__Compan__4E88ABD4");
             });
 
             modelBuilder.Entity<Message>(entity =>
             {
-                entity.Property(e => e.Content).IsRequired();
+                entity.Property(e => e.MessageType).IsUnicode(false);
 
-                entity.Property(e => e.MessageType)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.SentAt)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.SentAt).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Receiver)
                     .WithMany(p => p.MessageReceivers)
                     .HasForeignKey(d => d.ReceiverId)
-                    .HasConstraintName("FK__Messages__Receiv__05D8E0BE");
+                    .HasConstraintName("FK__Messages__Receiv__07C12930");
 
                 entity.HasOne(d => d.Sender)
                     .WithMany(p => p.MessageSenders)
                     .HasForeignKey(d => d.SenderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Messages__Sender__04E4BC85");
+                    .HasConstraintName("FK__Messages__Sender__06CD04F7");
             });
 
             modelBuilder.Entity<Notification>(entity =>
             {
-                entity.Property(e => e.CreatedAt)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Message)
-                    .IsRequired()
-                    .HasMaxLength(255);
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Notifications)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Notificat__UserI__18EBB532");
+                    .HasConstraintName("FK__Notificat__UserI__1AD3FDA4");
+            });
+
+            modelBuilder.Entity<Participant>(entity =>
+            {
+                entity.Property(e => e.IsConfirmed).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.JoinedAt).HasDefaultValueSql("(getdate())");
+
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.Participants)
+                    .HasForeignKey(d => d.EventId)
+                    .HasConstraintName("FK__Participa__Event__55F4C372");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Participants)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Participa__UserI__56E8E7AB");
             });
 
             modelBuilder.Entity<Project>(entity =>
             {
-                entity.Property(e => e.CreatedAt)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Description).HasMaxLength(255);
-
-                entity.Property(e => e.EndDate).HasColumnType("date");
-
-                entity.Property(e => e.ProjectName)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.StartDate).HasColumnType("date");
-
-                entity.Property(e => e.Status)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Company)
                     .WithMany(p => p.Projects)
                     .HasForeignKey(d => d.CompanyId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Projects__Compan__787EE5A0");
+                    .HasConstraintName("FK__Projects__Compan__7A672E12");
 
                 entity.HasOne(d => d.CreatedByNavigation)
                     .WithMany(p => p.Projects)
                     .HasForeignKey(d => d.CreatedBy)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Projects__Create__797309D9");
+                    .HasConstraintName("FK__Projects__Create__7B5B524B");
             });
 
             modelBuilder.Entity<Role>(entity =>
             {
-                entity.HasIndex(e => e.RoleName, "UQ__Roles__8A2B6160AD86F46F")
-                    .IsUnique();
+                entity.Property(e => e.RoleId).ValueGeneratedNever();
 
-                entity.Property(e => e.Description).HasMaxLength(50);
-
-                entity.Property(e => e.RoleName)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.RoleName).IsUnicode(false);
             });
 
             modelBuilder.Entity<SubscriptionPlan>(entity =>
             {
                 entity.HasKey(e => e.PlanId)
-                    .HasName("PK__Subscrip__755C22B79238A501");
-
-                entity.Property(e => e.PlanName)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
+                    .HasName("PK__Subscrip__755C22B72F8DDC56");
             });
 
             modelBuilder.Entity<Task>(entity =>
             {
-                entity.Property(e => e.CreatedAt)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Description).HasMaxLength(255);
-
-                entity.Property(e => e.DueDate).HasColumnType("date");
-
-                entity.Property(e => e.Priority)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Status)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.TaskName)
-                    .IsRequired()
-                    .HasMaxLength(100);
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.AssignedToNavigation)
                     .WithMany(p => p.Tasks)
                     .HasForeignKey(d => d.AssignedTo)
-                    .HasConstraintName("FK__Tasks__AssignedT__7F2BE32F");
+                    .HasConstraintName("FK__Tasks__AssignedT__01142BA1");
 
                 entity.HasOne(d => d.Project)
                     .WithMany(p => p.Tasks)
                     .HasForeignKey(d => d.ProjectId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Tasks__ProjectId__7E37BEF6");
+                    .HasConstraintName("FK__Tasks__ProjectId__00200768");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasIndex(e => e.Email, "UQ__Users__A9D1053465BA0059")
-                    .IsUnique();
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.CreatedAt)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.FullName)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.IsActive)
-                    .IsRequired()
-                    .HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.PasswordHash)
-                    .IsRequired()
-                    .HasMaxLength(255);
-
-                entity.Property(e => e.Phone).HasMaxLength(15);
+                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
 
                 entity.HasOne(d => d.Company)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.CompanyId)
-                    .HasConstraintName("FK__Users__CompanyId__66603565");
+                    .HasConstraintName("FK__Users__CompanyId__71D1E811");
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.Users)
+                    .HasForeignKey(d => d.GroupId)
+                    .HasConstraintName("FK_Users_GroupInCompany");
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.RoleId)
-                    .HasConstraintName("FK__Users__RoleId__30C33EC3");
+                    .HasConstraintName("FK__Users__RoleId__72C60C4A");
             });
 
             modelBuilder.Entity<UserSession>(entity =>
             {
                 entity.HasKey(e => e.SessionId)
-                    .HasName("PK__UserSess__C9F492906998DEE5");
+                    .HasName("PK__UserSess__C9F49290BE3DC733");
 
-                entity.Property(e => e.IsActive)
-                    .IsRequired()
-                    .HasDefaultValueSql("((1))");
+                entity.Property(e => e.IsActive).HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.LoginTime)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.LogoutTime).HasColumnType("datetime");
+                entity.Property(e => e.LoginTime).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.UserSessions)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__UserSessi__UserI__1DB06A4F");
+                    .HasConstraintName("FK__UserSessi__UserI__1F98B2C1");
             });
 
             OnModelCreatingPartial(modelBuilder);
